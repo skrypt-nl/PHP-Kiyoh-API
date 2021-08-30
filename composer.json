@@ -23,7 +23,7 @@
     "homepage": "https://github.com/skrypt-nl/PHP-Kiyoh-API",
     "license": "GPL-3.0+",
     "require": {
-        "php": "~7.1",
+        "php": "^7.2.5",
         "guzzlehttp/guzzle": "^7.0",
         "ext-simplexml": "*"
     },
@@ -38,7 +38,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.1"
+            "php": "7.2.5"
         }
     }
 }
