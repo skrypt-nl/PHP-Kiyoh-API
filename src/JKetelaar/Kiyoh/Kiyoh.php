@@ -11,7 +11,7 @@ use JKetelaar\Kiyoh\Model\Company;
 
 class Kiyoh
 {
-    const COMPANY_REVIEWS_URL = 'https://www.kiyoh.com/v1/review/feed.xml?hash=%s&limit=%s';
+    const COMPANY_REVIEWS_URL = 'https://www.kiyoh.com/v1/publication/review/external/group/statistics';
 
     /**
      * @var string
@@ -35,7 +35,10 @@ class Kiyoh
      */
     public function __construct(string $connectorCode, int $reviewCount = 10)
     {
-        $this->client = new Client();
+        $headers = [
+            'X-Publication-Api-Token' => $connectorCode
+        ];
+        $this->client = new Client(['headers' => $headers]);
         $this->connectorCode = $connectorCode;
         $this->reviewCount = $reviewCount;
     }
@@ -61,7 +64,7 @@ class Kiyoh
             $content = $this->getContent();
         }
 
-        $content = simplexml_load_string($content);
+        $content = json_decode($content);
 
         return ReviewFactory::createCompany($content);
     }

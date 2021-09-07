@@ -17,15 +17,16 @@ class ReviewFactory
      *
      * @return Company
      */
-    public static function createCompany(SimpleXMLElement $element): Company
+    public static function createCompany($element): Company
     {
+        $element = $element[0];
         $averageRating = $element->averageRating;
         $numberReviews = $element->numberReviews;
         $last12MonthAverageRating = $element->last12MonthAverageRating;
         $last12MonthNumberReviews = $element->last12MonthNumberReviews;
-        $percentageRecommendation = $element->percentageRecommendation;
-        $locationId = $element->locationId;
-        $locationName = $element->locationName;
+        $percentageRecommendation = $element->recommendation;
+        $locationId = $element->locationGroupId;
+        $locationName = $element->locationGroupName;
 
         $company = new Company(
             (float) $averageRating,
@@ -39,9 +40,9 @@ class ReviewFactory
 
         $reviews = [];
 
-        foreach ($element->reviews->reviews as $review) {
-            $reviews[] = (self::createReview($review));
-        }
+//        foreach ($element->reviews->reviews as $review) {
+//            $reviews[] = (self::createReview($review));
+//        }
 
         $company->setReviews($reviews);
 
